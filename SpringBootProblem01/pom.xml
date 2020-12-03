@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.springboot</groupId>
-	<artifactId>SpringBootLearnings</artifactId>
+	<artifactId>SpringBootProblem01</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringBootLearnings</name>
-	<description>Demo project for Spring Boot</description>
+	<name>SpringBootProblem01</name>
+	<description>SpringBootProblem01</description>
 
 	<properties>
 		<java.version>1.8</java.version>
