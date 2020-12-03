@@ -1,4 +1,4 @@
-package com.mgl.digital.sds.scrapper.app.controller;
+package com.mgl.digital.sds.scrapper.app.testHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;

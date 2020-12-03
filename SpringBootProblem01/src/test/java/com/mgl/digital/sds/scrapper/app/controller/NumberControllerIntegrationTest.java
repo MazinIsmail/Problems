@@ -5,34 +5,27 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.mgl.digital.sds.scrapper.app.service.NumberService;
-import com.mgl.digital.sds.scrapper.app.testHelper.TestHelper;
+import com.mgl.digital.sds.scrapper.app.main.SpringLearningsProblem01Application;
 
-@SpringBootTest
-@WebMvcTest(value = NumberController.class)
-public class NumberControllerTest {
+@SpringBootTest(classes = SpringLearningsProblem01Application.class)
+@RunWith(SpringRunner.class)
+public class NumberControllerIntegrationTest {
 
 	private static final String NUMBER_URL = "/numbers";
 
-	@InjectMocks
+	@Autowired
 	private NumberController numberController;
-
-	@Mock
-	private NumberService numberService;
 
 	private MockMvc mockMvc;
 
@@ -44,11 +37,8 @@ public class NumberControllerTest {
 
 	@Test
 	public void numberFullValueTest() throws Exception {
-		Map<String, Object> mockData = TestHelper.getResponse();
-		Mockito.when(numberService.getNumbers()).thenReturn(mockData);
 		mockMvc.perform(get(NUMBER_URL).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.data", hasItem(9)));
-		Mockito.reset(numberService);
 	}
 
 }

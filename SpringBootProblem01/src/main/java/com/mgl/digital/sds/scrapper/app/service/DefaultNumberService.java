@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DefaultNumberService implements NumberService {
+
 	/**
 	 * Write a method in Java8+, such that the method generates a sequence of
 	 * numbers between 1 and 1000 inclusive. It then keeps only the ones which are
