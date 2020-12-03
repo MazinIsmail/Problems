@@ -18,7 +18,6 @@ public class NumberController {
 	@ResponseBody
 	@RequestMapping("/numbers")
 	public Map<String, Object> numbers() {
-		// TODO - inject a Number Service and call getNumbers(), and return the result
 		Map<String, Object> numbers = numberService.getNumbers();
 		return numbers;
 	}
