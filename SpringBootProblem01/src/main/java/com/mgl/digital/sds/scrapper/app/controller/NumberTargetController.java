@@ -17,8 +17,11 @@ import com.mgl.digital.sds.scrapper.app.models.TargetInputs;
 import com.mgl.digital.sds.scrapper.app.service.NumberService;
 import com.mgl.digital.sds.scrapper.app.service.TargetNumberService;
 
+/**
+ * Problem 01 and 02 Controller.
+ */
 @Controller
-public class NumberController {
+public class NumberTargetController {
 
 	@Autowired
 	private NumberService numberService;

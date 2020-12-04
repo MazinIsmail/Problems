@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mgl.digital.sds.scrapper.app.main.SpringLearningsProblem01Application;
 import com.mgl.digital.sds.scrapper.app.models.TargetInputs;
-import com.mgl.digital.sds.scrapper.app.testHelper.TestHelper;
 
 @SpringBootTest(classes = SpringLearningsProblem01Application.class)
 @RunWith(SpringRunner.class)
@@ -30,14 +29,14 @@ public class NumberControllerIntegrationTest {
 	private static final String INDICES_URL = "/indices";
 
 	@Autowired
-	private NumberController numberController;
+	private NumberTargetController numberTargetController;
 
 	private MockMvc mockMvc;
 
 	@Before
 	public void init() {
 		MockitoAnnotations.initMocks(this);
-		mockMvc = MockMvcBuilders.standaloneSetup(numberController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(numberTargetController).build();
 	}
 
 	@Test
@@ -45,7 +44,7 @@ public class NumberControllerIntegrationTest {
 		mockMvc.perform(get(NUMBER_URL).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.data", hasItem(9)));
 	}
-	
+
 	@Test
 	public void indicesNullTest() throws Exception {
 		mockMvc.perform(get(INDICES_URL).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
@@ -53,7 +52,8 @@ public class NumberControllerIntegrationTest {
 
 	@Test
 	public void indicesFailMessageTest() throws Exception {
-		TargetInputs targetInputs = TestHelper.sampleTargetInputsEmpty();
+		TargetInputs targetInputs = new TargetInputs();
+		targetInputs.setTarget("37");
 		String json = new ObjectMapper().writeValueAsString(targetInputs);
 		mockMvc.perform(get(INDICES_URL).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest()).andExpect(content().string("wrong input"));
@@ -61,7 +61,10 @@ public class NumberControllerIntegrationTest {
 
 	@Test
 	public void indicesSucessTest() throws Exception {
-		TargetInputs targetInputs = TestHelper.sampleTargetInputs1();
+		TargetInputs targetInputs = new TargetInputs();
+		int[] arrayInput = { 0, 29, 10, 8, 19, 2 };
+		targetInputs.setArrayInput(arrayInput);
+		targetInputs.setTarget("37");
 		String json = new ObjectMapper().writeValueAsString(targetInputs);
 		mockMvc.perform(get(INDICES_URL).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(jsonPath("$", hasItem(1))).andExpect(jsonPath("$", hasItem(3)));

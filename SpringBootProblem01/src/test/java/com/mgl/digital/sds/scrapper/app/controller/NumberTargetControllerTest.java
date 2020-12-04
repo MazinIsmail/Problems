@@ -26,17 +26,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mgl.digital.sds.scrapper.app.models.TargetInputs;
 import com.mgl.digital.sds.scrapper.app.service.NumberService;
 import com.mgl.digital.sds.scrapper.app.service.TargetNumberService;
-import com.mgl.digital.sds.scrapper.app.testHelper.TestHelper;
 
 @SpringBootTest
-@WebMvcTest(value = NumberController.class)
-public class NumberControllerTest {
+@WebMvcTest(value = NumberTargetController.class)
+public class NumberTargetControllerTest {
 
 	private static final String NUMBER_URL = "/numbers";
 	private static final String INDICES_URL = "/indices";
 
 	@InjectMocks
-	private NumberController numberController;
+	private NumberTargetController numberTargetController;
 
 	@Mock
 	private NumberService numberService;
@@ -49,7 +48,7 @@ public class NumberControllerTest {
 	@Before
 	public void init() {
 		MockitoAnnotations.initMocks(this);
-		mockMvc = MockMvcBuilders.standaloneSetup(numberController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(numberTargetController).build();
 	}
 
 	@Test
@@ -94,8 +93,8 @@ public class NumberControllerTest {
 		targetInputs.setArrayInput(arrayInput);
 		targetInputs.setTarget("37");
 		int[] nums = { 0, 29, 10, 8, 19, 2 };
-		Mockito.when(targetNumberService.indices(nums, Integer.parseInt("37")))
-				.thenReturn(TestHelper.indicesValue1());
+		int[] indices = { 1, 3 };
+		Mockito.when(targetNumberService.indices(nums, Integer.parseInt("37"))).thenReturn(indices);
 		String json = new ObjectMapper().writeValueAsString(targetInputs);
 		mockMvc.perform(get(INDICES_URL).content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(jsonPath("$", hasItem(1))).andExpect(jsonPath("$", hasItem(3)));

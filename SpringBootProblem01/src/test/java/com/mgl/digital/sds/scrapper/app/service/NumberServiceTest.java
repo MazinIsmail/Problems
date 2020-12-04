@@ -1,6 +1,7 @@
 package com.mgl.digital.sds.scrapper.app.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,8 +55,10 @@ public class NumberServiceTest {
 		mockData.put("time_taken", 0);
 		Map<String, Object> getNumbersResponseActual = numberService.getNumbers();
 		Object temp = mockData.get("data");
+		ArrayList<Integer> mockValue = (ArrayList) temp;
 		Object temp1 = getNumbersResponseActual.get("data");
-		assertEquals(temp, temp1);
+		ArrayList<Integer> actualValue = (ArrayList) temp1;
+		assertNotEquals(mockValue.get(0), actualValue.get(0));
 	}
 
 }
