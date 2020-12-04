@@ -26,7 +26,8 @@ public class DefaultNumberService implements NumberService {
 				.limit(10).collect(Collectors.toList());
 		Map<String, Object> response = new HashMap<>();
 		response.put("data", result);
-		response.put("time_taken", System.nanoTime() - startTime);
+		long elapsedTime = System.nanoTime() - startTime;
+		response.put("time_taken", elapsedTime + " ns");
 		return response;
 	}
 

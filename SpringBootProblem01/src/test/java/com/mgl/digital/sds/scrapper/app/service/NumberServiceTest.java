@@ -25,5 +25,12 @@ public class NumberServiceTest {
 		Map<String, Object> getNumbersResponseActual = numberService.getNumbers();
 		assertEquals(mockData.get(0), getNumbersResponseActual.get(0));
 	}
+	
+	@Test
+	public void defaultNumberServiceGetNumbersFailTest() {
+		Map<String, Object> mockData = TestHelper.getResponse1();
+		Map<String, Object> getNumbersResponseActual = numberService.getNumbers();
+		assertEquals(mockData.get(0), getNumbersResponseActual.get(0));
+	}
 
 }
