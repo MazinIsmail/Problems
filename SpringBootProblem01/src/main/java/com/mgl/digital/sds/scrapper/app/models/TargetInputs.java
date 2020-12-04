@@ -7,8 +7,6 @@ public class TargetInputs {
 
 	private int[] arrayInput;
 
-	@Digits(fraction = 0, integer = 10)
-	@NotBlank
 	private String target;
 
 	public int[] getArrayInput() {

@@ -81,9 +81,10 @@ public class NumberTargetControllerTest {
 	@Test
 	public void indicesValidationTest() throws Exception {
 		TargetInputs targetInputs = new TargetInputs();
+		targetInputs.setTarget("37");
 		String json = new ObjectMapper().writeValueAsString(targetInputs);
 		mockMvc.perform(get(INDICES_URL).content(json).contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isBadRequest());
+				.andExpect(status().isOk());
 	}
 
 	@Test

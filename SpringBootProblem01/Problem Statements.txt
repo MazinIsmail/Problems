@@ -6,3 +6,11 @@ Write a method in Java 8+, such that the method generates a sequence of numbers 
 It then keeps only the ones which are multiples of 3 or 5 and then squares them.
 It returns the first 10 numbers from the series.
 
+Problem 02:
+
+Finds the indices of two numbers from the array whose sum will equal to the given target.
+
+Problem 03:
+
+Counts the number of words ending in 'y' or 'z' (not case sensitive).
+'y' or 'z' is at the end of a word if there is not an alphabetic letter immediately following it.

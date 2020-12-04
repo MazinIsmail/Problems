@@ -4,18 +4,16 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * Problem 03
+ */
 public class CountYZTest {
 
-	// TODO
-	// Given a string, count the number of words ending in 'y' or 'z' -- so the 'y'
-	// in "heavy" and the 'z' in "fez" count,
-	// but not the 'y' in "yellow" (not case sensitive). We'll say that a 'y' or 'z'
-	// is at the end of a word if there is not an alphabetic letter immediately
-	// following it.
-	// countYZ("fez day") → 2
-	// countYZ("day fez") → 2
-	// countYZ("day fyyyz") → 2
-
+	/*
+	 * Counts the number of words ending in 'y' or 'z' (not case sensitive). 'y' or
+	 * 'z' is at the end of a word if there is not an alphabetic letter immediately
+	 * following it.
+	 */
 	public int countYZ(String str) {
 		char[] charString = str.toCharArray();
 		int count = 0;
@@ -50,10 +48,16 @@ public class CountYZTest {
 		return count;
 	}
 
+	/**
+	 * Checks if the char is a alphabet or not.
+	 */
 	private boolean isAlpha(char charValue) {
 		return (charValue >= 65 && charValue <= 90) || (charValue >= 97 && charValue <= 122);
 	}
 
+	/**
+	 * Checks if the char is 'z', 'Z', 'y', 'Y' or not.
+	 */
 	private boolean isZYCheck(char c) {
 		char[] zyChar = { 'z', 'Z', 'y', 'Y' };
 		for (char x : zyChar) {

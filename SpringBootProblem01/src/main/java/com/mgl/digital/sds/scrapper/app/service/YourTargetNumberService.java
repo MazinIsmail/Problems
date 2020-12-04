@@ -1,9 +1,9 @@
 package com.mgl.digital.sds.scrapper.app.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,11 +18,15 @@ public class YourTargetNumberService implements TargetNumberService {
 		if (arr == null || arr.length == 0)
 			throw new IllegalStateException("wrong input");
 		else {
-			return findSumTargetIndex(arr, target);
+			return findSumTargetIndexMemoryTechnique(arr, target);
 		}
 	}
 
-	public int[] findSumTargetIndex(int[] nums, int target) {
+	/**
+	 * Returns the indices of two numbers whose sum will equal the target. Using
+	 * memory technique.
+	 */
+	public int[] findSumTargetIndexMemoryTechnique(int[] nums, int target) {
 		Map<Integer, Integer> numMap = new HashMap<>();
 		for (int i = 0; i < nums.length; i++) {
 			int singleValue = nums[i];
@@ -31,6 +35,41 @@ public class YourTargetNumberService implements TargetNumberService {
 				return new int[] { numMap.get(complementaryNumber), i };
 			} else {
 				numMap.put(nums[i], i);
+			}
+		}
+		return new int[] {};
+	}
+
+	/**
+	 * Returns the indices of two numbers whose sum will equal the target. Brute
+	 * Force technique.
+	 */
+	public int[] findSumTargetIndexBruteForce(int[] nums, int target) {
+		for (int i = 0; i < nums.length; i++) {
+			for (int j = i + 1; j < nums.length; j++) {
+				if (nums[i] + nums[j] == target) {
+					return new int[] { i, j };
+				}
+			}
+		}
+		return new int[] {};
+	}
+
+	/**
+	 * Returns the indices of two numbers whose sum will equal the target. Brute
+	 * Force technique.
+	 */
+	public int[] findSumTargetIndexSorted(int[] nums, int target) {
+		Arrays.sort(nums);
+		int left = 0;
+		int right = nums.length - 1;
+		while (left < right) {
+			if (nums[left] + nums[right] == target) {
+				return new int[] { left, right };
+			} else if (nums[left] + nums[right] < target) {
+				left++;
+			} else {
+				right--;
 			}
 		}
 		return new int[] {};
