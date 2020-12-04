@@ -24,10 +24,8 @@ public class CountYZTest {
 			char charValue = charString[i];
 			boolean alphaCheck = isAlpha(charValue);
 			if (alphaCheck) {
-				startWordCharIndex = i;
-
 				// Word Starting Point
-				for (int j = startWordCharIndex; j < charString.length; j++) {
+				for (int j = i; j < charString.length; j++) {
 					charValue = charString[j];
 					alphaCheck = isAlpha(charValue);
 					if (alphaCheck) {
@@ -52,11 +50,11 @@ public class CountYZTest {
 		return count;
 	}
 
-	private static boolean isAlpha(char charValue) {
+	private boolean isAlpha(char charValue) {
 		return (charValue >= 65 && charValue <= 90) || (charValue >= 97 && charValue <= 122);
 	}
 
-	private static boolean isZYCheck(char c) {
+	private boolean isZYCheck(char c) {
 		char[] zyChar = { 'z', 'Z', 'y', 'Y' };
 		for (char x : zyChar) {
 			if (x == c) {
@@ -77,5 +75,6 @@ public class CountYZTest {
 		assertEquals(3, countYZ("aaz yyz my"));
 		assertEquals(2, countYZ("y2bz"));
 		assertEquals(0, countYZ("zxyx"));
+		assertEquals(1, countYZ("zxyx aedf asfz^&("));
 	}
 }
