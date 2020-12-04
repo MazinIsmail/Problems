@@ -12,8 +12,8 @@
 	<groupId>com.springboot</groupId>
 	<artifactId>SpringBootProblem01</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringBootProblem01</name>
-	<description>SpringBootProblem01</description>
+	<name>SpringBootProblem</name>
+	<description>SpringBootProblem</description>
 
 	<properties>
 		<java.version>1.8</java.version>

@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.mgl.digital.sds.scrapper.app.testHelper.TestHelper;
-
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = { YourTargetNumberService.class, YourTargetNumberServiceHelper.class })
 public class TargetNumberServiceTest {
@@ -27,17 +25,17 @@ public class TargetNumberServiceTest {
 
 	@Test
 	public void indicesSuccessTest() {
-		int[] expectedIndices = TestHelper.indicesValue1();
-		int[] actualIndices = targetNumberService.indices(TestHelper.numsValue1(),
-				Integer.parseInt(TestHelper.targetValue1()));
+		int[] expectedIndices = { 1, 3 };
+		int[] nums = { 0, 29, 10, 8, 19, 2 };
+		int[] actualIndices = targetNumberService.indices(nums, Integer.parseInt("37"));
 		assertArrayEquals(expectedIndices, actualIndices);
 	}
 
 	@Test
 	public void indicesNotEqualTest() {
-		int[] expectedIndices = TestHelper.indicesValue2();
-		int[] actualIndices = targetNumberService.indices(TestHelper.numsValue1(),
-				Integer.parseInt(TestHelper.targetValue1()));
+		int[] expectedIndices = { 1, 4 };
+		int[] nums = { 0, 29, 10, 8, 19, 2 };
+		int[] actualIndices = targetNumberService.indices(nums, Integer.parseInt("37"));
 		assertFalse(Arrays.equals(expectedIndices, actualIndices));
 	}
 
@@ -45,8 +43,8 @@ public class TargetNumberServiceTest {
 	public void indicesEmptyValidationTest() {
 		expectedException.expect(IllegalStateException.class);
 		expectedException.expectMessage("wrong input");
-		int[] expectedIndices = TestHelper.indicesValue2();
-		int[] actualIndices = targetNumberService.indices(null, Integer.parseInt(TestHelper.targetValue1()));
+		int[] expectedIndices = { 1, 4 };
+		int[] actualIndices = targetNumberService.indices(null, Integer.parseInt("37"));
 
 	}
 
