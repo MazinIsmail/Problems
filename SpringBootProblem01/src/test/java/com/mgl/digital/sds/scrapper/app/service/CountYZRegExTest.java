@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
+import org.springframework.util.StringUtils;
 
 /**
  * Problem 03
@@ -39,6 +40,18 @@ public class CountYZRegExTest {
 			}
 		}
 		return count;
+	}
+
+	public int countYZ1(String str) {
+		if (StringUtils.isNotBlank(str)) {
+			Matcher matcher = Pattern.compile("[yz](?!\\p{L})").matcher(str.toLowerCase());
+			int count = 0;
+			while (matcher.find()) {
+				count++;
+			}
+			return count;
+		}
+		return 0;
 	}
 
 	@Test
