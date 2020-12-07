@@ -18,15 +18,31 @@ public class CountYZRegExTest {
 	 * following it.
 	 */
 	public int countYZ(String str) {
-		Matcher m = Pattern.compile("(?i)[yz]\\b").matcher(str);
 		int count = 0;
-		while (m.find())
-			count++;
+		String[] stringArray = str.split("[^a-zA-Z]");
+		for (String stringWord : stringArray) {
+			Matcher m = Pattern.compile("(?i)[yz]\\b").matcher(stringWord);
+			if (m.find()) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public int countAZ(String str) {
+		int count = 0;
+		String[] stringArray = str.split("[^a-zA-Z0-9]");
+		for (String stringWord : stringArray) {
+			Matcher m = Pattern.compile("(?i)[yz]\\b").matcher(stringWord);
+			if (m.find()) {
+				count++;
+			}
+		}
 		return count;
 	}
 
 	@Test
-	public void shouldPass() throws Exception {
+	public void shouldPassYZ() throws Exception {
 		assertEquals(2, countYZ("fez day"));
 		assertEquals(2, countYZ("day fez"));
 		assertEquals(1, countYZ("day yak"));
@@ -34,8 +50,22 @@ public class CountYZRegExTest {
 		assertEquals(2, countYZ("!!day--yaz!!"));
 		assertEquals(2, countYZ("DAY abc XYZ"));
 		assertEquals(3, countYZ("aaz yyz my"));
-		assertEquals(1, countYZ("y2bz"));
+		assertEquals(2, countYZ("y2bz"));
 		assertEquals(0, countYZ("zxyx"));
 		assertEquals(1, countYZ("zxyx aedf asfz^&("));
+	}
+
+	@Test
+	public void shouldPassAZ() throws Exception {
+		assertEquals(2, countAZ("fez day"));
+		assertEquals(2, countAZ("day fez"));
+		assertEquals(1, countAZ("day yak"));
+		assertEquals(1, countAZ("day:yak"));
+		assertEquals(2, countAZ("!!day--yaz!!"));
+		assertEquals(2, countAZ("DAY abc XYZ"));
+		assertEquals(3, countAZ("aaz yyz my"));
+		assertEquals(1, countAZ("y2bz"));
+		assertEquals(0, countAZ("zxyx"));
+		assertEquals(1, countAZ("zxyx aedf asfz^&("));
 	}
 }

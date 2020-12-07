@@ -3,6 +3,7 @@ package com.mgl.digital.sds.scrapper.app.service;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,18 @@ public class YourTargetNumberService implements TargetNumberService {
 		return new int[] {};
 	}
 
+	public int[] findSumTargetIndexBruteForceUsingStreams(int[] nums, int target) {
+		// TODO:
+		for (int i = 0; i < nums.length; i++) {
+			for (int j = i + 1; j < nums.length; j++) {
+				if (nums[i] + nums[j] == target) {
+					return new int[] { i, j };
+				}
+			}
+		}
+		return new int[] {};
+	}
+
 	/**
 	 * Returns the indices of two numbers whose sum will equal the target. Brute
 	 * Force technique.
@@ -73,6 +86,13 @@ public class YourTargetNumberService implements TargetNumberService {
 			}
 		}
 		return new int[] {};
+	}
+
+	public int[] getindicies(int[] arr, int targetvalue) {
+		Map<Integer, Integer> map = new HashMap<>();
+		IntStream.range(0, arr.length).forEach(i -> IntStream.range(0, arr.length)
+				.filter(j -> arr[i] + arr[j] == targetvalue).forEach(ind -> map.put(i, arr[i])));
+		return map.keySet().stream().mapToInt(i -> i).toArray();
 	}
 
 }

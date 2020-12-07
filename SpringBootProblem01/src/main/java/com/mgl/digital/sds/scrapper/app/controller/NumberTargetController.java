@@ -3,6 +3,7 @@ package com.mgl.digital.sds.scrapper.app.controller;
 import java.util.Map;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,28 @@ public class NumberTargetController {
 	@RequestMapping("/numbers")
 	public Map<String, Object> numbers() {
 		Map<String, Object> numbers = numberService.getNumbers();
+		return numbers;
+	}
+
+	@ResponseBody
+	@RequestMapping("/numbers/{lowwerRange}/{upperRange}")
+	public Map<String, Object> numbersRange(
+			@PathVariable("lowwerRange") @Digits(fraction = 0, integer = 0) String lowwerRange,
+			@PathVariable("upperRange") @Digits(fraction = 0, integer = 0) String upperRange) {
+
+		Map<String, Object> numbers = numberService.getNumbersRange(Integer.parseInt(lowwerRange),
+				Integer.parseInt(upperRange));
+		return numbers;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/numbersRParam")
+	public Map<String, Object> numbersRangeRParam(
+			@RequestParam("lowwerRange") @Digits(fraction = 0, integer = 0) String lowwerRange,
+			@RequestParam("upperRange") @Digits(fraction = 0, integer = 0) String upperRange) {
+
+		Map<String, Object> numbers = numberService.getNumbersRange(Integer.parseInt(lowwerRange),
+				Integer.parseInt(upperRange));
 		return numbers;
 	}
 

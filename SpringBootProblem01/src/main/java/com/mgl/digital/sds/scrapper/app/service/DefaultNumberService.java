@@ -9,6 +9,10 @@ import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * Class that returns a map with ...
+ * 
+ */
 @Service
 public class DefaultNumberService implements NumberService {
 
@@ -21,8 +25,21 @@ public class DefaultNumberService implements NumberService {
 	public Map<String, Object> getNumbers() {
 		List<Integer> result = new ArrayList<>();
 		long startTime = System.nanoTime();
-		result = IntStream.rangeClosed(1, 1000).boxed().filter(str -> str % 3 == 0 || str % 5 == 0).map(n -> n * n)
-				.limit(10).collect(Collectors.toList());
+		result = IntStream.rangeClosed(1, 1000).boxed().filter(str -> str % 3 == 0 || str % 5 == 0).limit(10)
+				.map(n -> n * n).collect(Collectors.toList());
+		Map<String, Object> response = new HashMap<>();
+		response.put("data", result);
+		long elapsedTime = System.nanoTime() - startTime;
+		response.put("time_taken", elapsedTime + " ns");
+		return response;
+	}
+	
+	@Override
+	public Map<String, Object> getNumbersRange(int lowwerRange, int upperRange) {
+		List<Integer> result = new ArrayList<>();
+		long startTime = System.nanoTime();
+		result = IntStream.rangeClosed(lowwerRange, upperRange).boxed().filter(str -> str % 3 == 0 || str % 5 == 0).limit(10)
+				.map(n -> n * n).collect(Collectors.toList());
 		Map<String, Object> response = new HashMap<>();
 		response.put("data", result);
 		long elapsedTime = System.nanoTime() - startTime;
